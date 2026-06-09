@@ -59,13 +59,13 @@ interface CartItem {
           }
         </ul>
         <div class="card-actions flex-col">
-          <button class="btn btn-block" (click)="addToCart('apple')">
+          <button class="btn btn-outline btn-accent btn-block" (click)="addToCart('apple')">
             Add Apple 🍎
           </button>
-          <button class="btn btn-block" (click)="addToCart('orange')">
+          <button class="btn btn-outline btn-accent btn-block" (click)="addToCart('orange')">
             Add Orange 🍊
           </button>
-          <button class="btn btn-block" (click)="addToCart('banana')">
+          <button class="btn btn-outline btn-accent btn-block" (click)="addToCart('banana')">
             Add Banana 🍌
           </button>
         </div>

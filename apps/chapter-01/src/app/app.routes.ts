@@ -35,15 +35,4 @@ export const appRoutes: Route[] = [
       name: 'Effect',
     },
   },
-  {
-    path: 'linkedSignal',
-    loadComponent: () => {
-      return import('./linkedSignal/linkedSignal.component').then(
-        (m) => m.LinkedSignalComponent
-      );
-    },
-    data: {
-      name: 'Linked Signal',
-    },
-  },
 ];

@@ -28,4 +28,26 @@ export const appRoutes: Route[] = [
       name: 'Weather Info',
     },
   },
+  {
+    path: 'linkedSignal',
+    loadComponent: () => {
+      return import('./linkedSignal/linkedSignal.component').then(
+        (m) => m.LinkedSignalComponent
+      );
+    },
+    data: {
+      name: 'Linked Signal',
+    },
+  },
+  {
+    path: 'linkedSignalExtended',
+    loadComponent: () => {
+      return import(
+        './linkedSignalExtendedExample/linkedSignal.component'
+      ).then((m) => m.LinkedSignalComponent);
+    },
+    data: {
+      name: 'Linked Signal (Extended)',
+    },
+  },
 ];

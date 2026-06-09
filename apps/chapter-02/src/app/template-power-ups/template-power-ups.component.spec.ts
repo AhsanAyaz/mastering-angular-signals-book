@@ -25,7 +25,7 @@ describe('TemplatePowerUpsComponent', () => {
     expect(statusCard.classList.contains('font-bold')).toBe(true);
 
     const statusAlert = fixture.nativeElement.querySelector('[data-testid="statusAlert"]');
-    expect(statusAlert.textContent).toContain('System Busy (Idle/Processing)');
+    expect(statusAlert.textContent).toContain('System Busy (State: idle)');
 
     // Click button to advance step (idle -> processing)
     const advanceBtn = fixture.nativeElement.querySelector('[data-testid="advanceBtn"]');
@@ -34,7 +34,7 @@ describe('TemplatePowerUpsComponent', () => {
     await fixture.whenStable();
 
     expect(component.currentStatus()).toBe('processing');
-    expect(statusAlert.textContent).toContain('System Busy (Idle/Processing)');
+    expect(statusAlert.textContent).toContain('System Busy (State: processing)');
 
     // Click button again to advance step (processing -> completed)
     advanceBtn.click();

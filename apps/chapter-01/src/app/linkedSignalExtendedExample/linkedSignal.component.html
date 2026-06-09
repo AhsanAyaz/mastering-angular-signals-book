@@ -42,7 +42,7 @@
         @for (item of pages(); track $index) {
         <button
           class="join-item btn"
-          [ngClass]="{ 'btn-active': resultsPage() === $index }"
+          [class.btn-active]="resultsPage() === $index"
           (click)="changePage($index)"
         >
           {{ $index + 1 }}

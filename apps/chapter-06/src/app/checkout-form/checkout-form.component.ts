@@ -51,7 +51,7 @@ import { PaymentService } from './payment.service';
                         <option value="credit">Credit Card</option>
                         <option value="paypal">PayPal</option>
                       </select>
-                      @if (checkoutForm.method().invalid && checkoutForm.method().touched) {
+                      @if (checkoutForm.method().invalid() && checkoutForm.method().touched()) {
                         <label class="label">
                           <span class="label-text-alt text-error">A payment method is required.</span>
                         </label>

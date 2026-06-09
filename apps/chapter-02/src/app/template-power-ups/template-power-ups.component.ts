@@ -23,15 +23,17 @@ export type TaskStatus = 'idle' | 'processing' | 'completed';
         <div class="divider"></div>
 
         <!-- 2. Consecutive @case statements & 3. exhaustive compilation check -->
-        @switch (currentStatus()) {
-          @case ('idle')
+        @switch (status) {
+          @case ('idle') {
+            <p class="alert alert-warning" data-testid="statusAlert">System Busy (Idle/Processing)</p>
+          }
           @case ('processing') {
             <p class="alert alert-warning" data-testid="statusAlert">System Busy (Idle/Processing)</p>
           }
           @case ('completed') {
             <p class="alert alert-success" data-testid="statusAlert">Task Completed Successfully</p>
           }
-          @default never;
+          @default never(status);
         }
 
         <!-- 4. Arrow function inside event binding to mutate signal inline -->
@@ -50,4 +52,8 @@ export class TemplatePowerUpsComponent {
   currentStatus = signal<TaskStatus>('idle');
   highlight = signal(true);
   baseStyles = { 'p-4': true, 'rounded-lg': true, 'text-center': true, 'font-bold': true, 'bg-base-300': true };
+
+  get status(): TaskStatus {
+    return this.currentStatus();
+  }
 }

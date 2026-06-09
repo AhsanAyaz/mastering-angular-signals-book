@@ -34,7 +34,8 @@ describe('TemplatePowerUpsComponent', () => {
     await fixture.whenStable();
 
     expect(component.currentStatus()).toBe('processing');
-    expect(statusAlert.textContent).toContain('System Busy (State: processing)');
+    const updatedStatusAlert = fixture.nativeElement.querySelector('[data-testid="statusAlert"]');
+    expect(updatedStatusAlert.textContent).toContain('System Busy (State: processing)');
 
     // Click button again to advance step (processing -> completed)
     advanceBtn.click();

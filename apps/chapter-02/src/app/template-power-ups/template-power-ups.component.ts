@@ -24,7 +24,11 @@ export type TaskStatus = 'idle' | 'processing' | 'completed';
 
         <!-- 2. Consecutive @case statements & 3. exhaustive compilation check -->
         @switch (status) {
-          @case ('idle')
+          @case ('idle') {
+            <p class="alert alert-warning" data-testid="statusAlert">
+              System Busy (State: {{ status }})
+            </p>
+          }
           @case ('processing') {
             <p class="alert alert-warning" data-testid="statusAlert">
               System Busy (State: {{ status }})

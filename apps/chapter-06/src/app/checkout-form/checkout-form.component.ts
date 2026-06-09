@@ -40,10 +40,11 @@ import { PaymentService } from './payment.service';
                   <div class="p-4 flex flex-col gap-4">
                     
                     <div class="form-control w-full">
-                      <label class="label">
+                      <label class="label" for="payment-method-select">
                         <span class="label-text font-semibold">Select Payment Method</span>
                       </label>
                       <select 
+                        id="payment-method-select"
                         [formField]="checkoutForm.method"
                         class="select select-bordered w-full"
                       >
@@ -52,17 +53,18 @@ import { PaymentService } from './payment.service';
                         <option value="paypal">PayPal</option>
                       </select>
                       @if (checkoutForm.method().invalid() && checkoutForm.method().touched()) {
-                        <label class="label">
+                        <div class="label">
                           <span class="label-text-alt text-error">A payment method is required.</span>
-                        </label>
+                        </div>
                       }
                     </div>
 
                     <div class="form-control w-full">
-                      <label class="label">
+                      <label class="label" for="amount-input">
                         <span class="label-text font-semibold">Amount ($)</span>
                       </label>
                       <input 
+                        id="amount-input"
                         type="number"
                         [formField]="checkoutForm.amount"
                         class="input input-bordered w-full"
@@ -96,7 +98,7 @@ import { PaymentService } from './payment.service';
 })
 export class CheckoutFormComponent {
   private paymentService = inject(PaymentService);
-  paymentResult = signal<any>(null);
+  paymentResult = signal<{ success: boolean; transactionId: string } | null>(null);
 
   // Schema-based validation built-in to Signal Forms
   formModel = signal({ method: '', amount: 100 });

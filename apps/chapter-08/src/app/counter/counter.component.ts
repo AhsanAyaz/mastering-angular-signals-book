@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
-  standalone: true,
   template: `
     <div class="card card-compact bg-base-200 w-96 mx-auto shadow-xl">
       <div class="card-body">

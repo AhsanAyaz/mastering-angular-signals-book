@@ -6,7 +6,6 @@ import { UserToSignalService } from '../services/user-to-signal.service';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [AsyncPipe, StatsComponent],
   template: `
     <div class="flex flex-col gap-8">

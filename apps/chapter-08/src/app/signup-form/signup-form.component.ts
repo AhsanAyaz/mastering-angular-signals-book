@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup-form',
-  standalone: true,
   imports: [FormsModule],
   template: `
     <form (ngSubmit)="onSubmit()" #form="ngForm">

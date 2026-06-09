@@ -4,7 +4,6 @@ import { SensorService } from './sensor.service';
 
 @Component({
   selector: 'app-signals-to-observables',
-  standalone: true,
   imports: [AsyncPipe, DecimalPipe],
   template: `
     <div class="flex flex-col gap-8">

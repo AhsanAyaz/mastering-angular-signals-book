@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-search-box',
-  standalone: true,
   imports: [FormsModule],
   template: `
     <div class="form-control w-full flex gap-4 flex-col">

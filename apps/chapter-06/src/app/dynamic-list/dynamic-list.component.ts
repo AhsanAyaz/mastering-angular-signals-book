@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms'; // For ngNativeValidate
 
 @Component({
   selector: 'app-dynamic-list',
-  standalone: true,
   imports: [FormsModule],
   template: `
     <div class="card bg-base-200 shadow-xl p-4 max-w-lg mx-auto">

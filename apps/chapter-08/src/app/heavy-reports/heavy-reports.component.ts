@@ -1,9 +1,7 @@
 import { Component, injectAsync, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-heavy-reports',
-  imports: [CommonModule],
   template: `
     <div class="card bg-base-200 w-96 shadow-xl mx-auto my-8">
       <div class="card-body items-center text-center">

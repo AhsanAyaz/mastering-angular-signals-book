@@ -35,7 +35,7 @@ import { FormsModule } from '@angular/forms'; // For ngNativeValidate
 
       <!-- List rendering -->
       <ul class="menu bg-base-100 rounded-box gap-1">
-        <!-- Query *inner divs* with viewChildren -->
+        <!-- Query *li* elements with viewChildren -->
         @for(item of items(); track item; let idx = $index) {
         <li #listItems [attr.data-item-value]="item">
           <!-- Outer list item -->
@@ -78,8 +78,8 @@ import { FormsModule } from '@angular/forms'; // For ngNativeValidate
 export class DynamicListComponent {
   // --- Signal-based element references ---
   submitButton = viewChild<ElementRef<HTMLButtonElement>>('submitButton');
-  // Signal for the list of *inner div* elements marked with #listItems.
-  listItems = viewChildren<ElementRef<HTMLDivElement>>('listItems'); // Querying DIVs now
+  // Signal for the list of *li* elements marked with #listItems.
+  listItems = viewChildren<ElementRef<HTMLLIElement>>('listItems'); // Querying LIs now
   newItemInput = viewChild<ElementRef<HTMLInputElement>>('newItemInput');
 
   // --- Component state signals ---

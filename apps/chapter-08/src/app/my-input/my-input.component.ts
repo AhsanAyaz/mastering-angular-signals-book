@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-input',
-  standalone: true,
   imports: [FormsModule],
   template: `
     <div class="input-container">

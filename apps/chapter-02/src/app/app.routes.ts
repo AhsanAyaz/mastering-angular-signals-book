@@ -46,4 +46,14 @@ export const appRoutes: Route[] = [
       name: 'Managing API Data',
     },
   },
+  {
+    path: 'template-power-ups',
+    loadComponent: () =>
+      import('./template-power-ups/template-power-ups.component').then(
+        (m) => m.TemplatePowerUpsComponent
+      ),
+    data: {
+      name: 'Template Powerups',
+    },
+  },
 ];

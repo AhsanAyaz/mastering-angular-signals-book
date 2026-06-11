@@ -3,21 +3,23 @@ import {
   TestBed,
   fakeAsync,
   tick,
+  flush,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { SignupFormComponent } from './signup-form.component';
+import { vi, MockInstance } from 'vitest';
 
 describe('SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SignupFormComponent, FormsModule],
     }).compileComponents();
 
-    consoleSpy = jest.spyOn(console, 'log');
+    consoleSpy = vi.spyOn(console, 'log');
     fixture = TestBed.createComponent(SignupFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -127,7 +129,7 @@ describe('SignupFormComponent', () => {
   });
 
   describe('Form Submission', () => {
-    it('should show submitting state during submission', fakeAsync(() => {
+    it('should show submitting state during submission', async () => {
       component.email.set('test@example.com');
       component.password.set('validpassword123');
       fixture.detectChanges();
@@ -140,14 +142,14 @@ describe('SignupFormComponent', () => {
       expect(button.textContent.trim()).toBe('Submitting...');
       expect(button.disabled).toBe(true);
 
-      tick(1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       fixture.detectChanges();
 
       expect(button.textContent.trim()).toBe('Sign Up');
       expect(button.disabled).toBe(false);
-    }));
+    });
 
-    it('should log form data on successful submission', fakeAsync(() => {
+    it('should log form data on successful submission', async () => {
       const testEmail = 'test@example.com';
       const testPassword = 'validpassword123';
 
@@ -158,16 +160,16 @@ describe('SignupFormComponent', () => {
       const form = fixture.nativeElement.querySelector('form');
       form.dispatchEvent(new Event('ngSubmit'));
 
-      tick(1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       fixture.detectChanges();
 
       expect(consoleSpy).toHaveBeenCalledWith('Form submitted:', {
         email: testEmail,
         password: testPassword,
       });
-    }));
+    });
 
-    it('should reset submitting state after error', fakeAsync(() => {
+    it('should reset submitting state after error', async () => {
       component.email.set('test@example.com');
       component.password.set('validpassword123');
       fixture.detectChanges();
@@ -178,11 +180,11 @@ describe('SignupFormComponent', () => {
 
       expect(component.isSubmitting()).toBe(true);
 
-      tick(1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       fixture.detectChanges();
 
       expect(component.isSubmitting()).toBe(false);
-    }));
+    });
   });
 
   describe('UI Elements', () => {

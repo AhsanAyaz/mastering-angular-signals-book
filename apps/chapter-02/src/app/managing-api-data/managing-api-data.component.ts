@@ -1,5 +1,4 @@
-import { afterNextRender, Component, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Injectable, inject, signal } from '@angular/core';
 
 type User = {
   email: string;
@@ -9,9 +8,24 @@ type User = {
   };
   picture: {
     large: string;
-    medium: string;
   };
 };
+
+@Injectable({ providedIn: 'root' })
+export class UserService {
+  getUser(): User {
+    return {
+      email: 'john.doe@example.com',
+      name: {
+        first: 'John',
+        last: 'Doe',
+      },
+      picture: {
+        large: 'https://randomuser.me/api/portraits/men/1.jpg',
+      },
+    };
+  }
+}
 
 @Component({
   selector: 'app-managing-api-data',
@@ -52,32 +66,26 @@ type User = {
   styles: ``,
 })
 export class ManagingApiDataComponent {
+  userService = inject(UserService);
   user = signal<User | null>(null);
   loading = signal(false);
-  error = signal(null);
-  httpClient = inject(HttpClient);
+  error = signal<string | null>(null);
 
   constructor() {
-    afterNextRender(() => {
-      this.fetchData();
-    });
+    this.fetchData();
   }
 
   fetchData() {
     this.loading.set(true);
-    this.httpClient
-      .get<{ results: User[] }>('https://randomuser.me/api')
-      .subscribe({
-        next: (res) => {
-          this.user.set(res.results[0]);
-          this.loading.set(false);
-          this.error.set(null);
-        },
-        error: (err) => {
-          this.error.set(err.message);
-          this.loading.set(false);
-          this.user.set(null);
-        },
-      });
+    try {
+      const data = this.userService.getUser();
+      this.user.set(data);
+      this.error.set(null);
+    } catch (err) {
+      this.error.set((err as Error).message);
+      this.user.set(null);
+    } finally {
+      this.loading.set(false);
+    }
   }
 }

@@ -7,7 +7,6 @@ import { provideRouter } from '@angular/router';
 // Create a simple test host component
 @Component({
   template: `<div libTheme></div>`,
-  standalone: true,
   imports: [ThemeDirective],
 })
 class TestHostComponent {}
@@ -15,7 +14,6 @@ class TestHostComponent {}
 // Test component with input binding
 @Component({
   template: `<div libTheme [theme]="theme()"></div>`,
-  standalone: true,
   imports: [ThemeDirective],
 })
 class TestHostWithInputComponent {

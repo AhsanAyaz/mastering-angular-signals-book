@@ -28,7 +28,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class ComputedFilterComponent {
   searchTerm = signal('');
-  resultsLimit = signal(5);
   people = signal(
     randFullName({
       length: 20,

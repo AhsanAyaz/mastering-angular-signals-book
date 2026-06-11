@@ -11,8 +11,25 @@
           class="input input-bordered w-full max-w-xs"
         />
       </label>
+
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Results limit</span>
+        </div>
+        <input
+          [(ngModel)]="resultsLimit"
+          type="number"
+          min="2"
+          max="{{ people().length }}"
+          class="input input-bordered w-full max-w-xs"
+        />
+      </label>
     </h2>
     <div>
+      <div class="flex justify-end">
+        {{ resultsPage() * resultsLimit() }} to
+        {{ resultsLimit() + resultsLimit() * resultsPage() }}
+      </div>
       <ul>
         @for (person of filtered() | slice: resultsPage() * resultsLimit() :
         (resultsLimit() + resultsLimit() * resultsPage()); track $index) {
@@ -25,7 +42,7 @@
         @for (item of pages(); track $index) {
         <button
           class="join-item btn"
-          [ngClass]="{ 'btn-active': resultsPage() === $index }"
+          [class.btn-accent]="resultsPage() === $index"
           (click)="changePage($index)"
         >
           {{ $index + 1 }}

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MyButtonComponent } from './my-button.component';
+import { vi } from 'vitest';
 
 describe('MyButtonComponent', () => {
   let component: MyButtonComponent;
@@ -20,7 +21,7 @@ describe('MyButtonComponent', () => {
   });
 
   it('should emit clicked event when button is clicked', () => {
-    const clickedSpy = jest.fn();
+    const clickedSpy = vi.fn();
     component.clicked.subscribe(clickedSpy);
 
     const button = fixture.nativeElement.querySelector(

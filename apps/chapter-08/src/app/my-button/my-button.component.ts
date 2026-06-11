@@ -2,7 +2,6 @@ import { Component, model, output } from '@angular/core';
 
 @Component({
   selector: 'app-my-button',
-  standalone: true,
   template: `
     <button
       data-testid="myButton"

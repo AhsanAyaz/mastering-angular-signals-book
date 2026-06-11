@@ -29,7 +29,6 @@ import { CurrencyPipe } from '@angular/common';
     ]),
     // Add other animations like 'pulse' if used
   ],
-  standalone: true,
   imports: [
     SearchBoxComponent,
     ProductsListComponent,

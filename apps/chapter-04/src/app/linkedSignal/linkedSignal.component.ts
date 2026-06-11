@@ -19,9 +19,7 @@ export class LinkedSignalComponent {
     })
   );
   resultsPage = linkedSignal({
-    source: () => {
-      this.searchTerm();
-    },
+    source: this.searchTerm,
     computation: () => {
       return 0;
     },

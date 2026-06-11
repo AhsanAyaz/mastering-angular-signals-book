@@ -68,4 +68,15 @@ export const appRoutes: Route[] = [
       name: 'Dynamic Element Refs',
     },
   },
+  {
+    path: 'checkout-form',
+    loadComponent: () => {
+      return import('./checkout-form/checkout-form.component').then(
+        (m) => m.CheckoutFormComponent
+      );
+    },
+    data: {
+      name: 'Signal Forms & Aria Checkout',
+    },
+  },
 ];

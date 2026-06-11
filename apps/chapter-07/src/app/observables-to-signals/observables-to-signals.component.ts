@@ -6,7 +6,6 @@ import { UserToSignalService } from '../services/user-to-signal.service';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [AsyncPipe, StatsComponent],
   template: `
     <div class="flex flex-col gap-8">
@@ -25,9 +24,9 @@ import { UserToSignalService } from '../services/user-to-signal.service';
 })
 export class ObservablesToSignalsComponent {
   private userService = inject(UserObsService);
-  private userWSignalService = inject(UserToSignalService);
+  private userToSignalService = inject(UserToSignalService);
 
   // Expose observables to the template
   protected readonly userStats$ = this.userService.userStats$;
-  protected readonly userStats = this.userWSignalService.userStats;
+  protected readonly userStats = this.userToSignalService.userStats;
 }

@@ -9,6 +9,7 @@ module.exports = [
       '**/dist',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/template-power-ups.component.ts',
     ],
   },
   {

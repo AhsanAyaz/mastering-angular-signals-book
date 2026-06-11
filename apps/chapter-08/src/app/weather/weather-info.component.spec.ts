@@ -1,22 +1,14 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WeatherInfoComponent } from './weather-info.component';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
+import { vi } from 'vitest';
+import { WeatherService } from './weather.service';
 
 describe('WeatherInfoComponent', () => {
   let component: WeatherInfoComponent;
   let fixture: ComponentFixture<WeatherInfoComponent>;
-
-  let httpTesting: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,22 +16,16 @@ describe('WeatherInfoComponent', () => {
       providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
-    httpTesting = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WeatherInfoComponent);
     component = fixture.componentInstance;
-  });
-
-  afterEach(() => {
-    // Verify that none of the tests make any extra HTTP requests.
-    httpTesting.verify();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getWeather on initialization', fakeAsync(() => {
-    const getWeather = jest
+  it('should call getWeather on initialization', async () => {
+    const getWeather = vi
       .spyOn(component.weatherService, 'getWeather')
       .mockImplementation(() => {
         return of({
@@ -51,37 +37,41 @@ describe('WeatherInfoComponent', () => {
 
     fixture.detectChanges();
     expect(getWeather).toHaveBeenCalled();
-  }));
+  });
 
-  it('should show loading state initially', fakeAsync(() => {
+  it('should show loading state initially', async () => {
+    const weatherSubject = new Subject<any>();
+    const getWeather = vi
+      .spyOn(component.weatherService, 'getWeather')
+      .mockImplementation(() => weatherSubject);
+
     fixture.detectChanges();
-    tick(); // flush the setTimeout()
-    const req = httpTesting.expectOne(
-      'assets/weather.json',
-      'Request to load the weather info'
-    );
-    req.flush({
-      temperature: 28,
-      condition: 'Sunny',
-      icon: 'assets/sunny.png',
-    });
+
+    expect(component.weatherResource.isLoading()).toBe(true);
     expect(
       fixture.nativeElement.querySelector('[data-testid="weatherLoader"]')
     ).toBeTruthy();
-  }));
+  });
 
-  it('should display weather data after loading', fakeAsync(() => {
-    fixture.detectChanges();
-    const req = httpTesting.expectOne(
-      'assets/weather.json',
-      'Request to load the weather info'
-    );
-    req.flush({
+  it('should display weather data after loading', async () => {
+    const mockWeatherData = {
       temperature: 25,
       condition: 'Sunny',
       icon: 'assets/sunny.png',
-    });
-    tick(1500);
+    };
+    const weatherSubject = new Subject<typeof mockWeatherData>();
+    const getWeather = vi
+      .spyOn(component.weatherService, 'getWeather')
+      .mockImplementation(() => weatherSubject);
+
+    fixture.detectChanges();
+
+    expect(component.weatherResource.isLoading()).toBe(true);
+
+    weatherSubject.next(mockWeatherData);
+    weatherSubject.complete();
+
+    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(
@@ -96,23 +86,27 @@ describe('WeatherInfoComponent', () => {
       fixture.nativeElement.querySelector('[data-testid="weatherCond"]')
         .textContent
     ).toContain('Condition: Sunny');
-  }));
+  });
 
-  it('should display error message on error', fakeAsync(() => {
+  it('should display error message on error', async () => {
     const errorMessage = 'Could not fetch data';
+    const weatherSubject = new Subject<any>();
+    const getWeather = vi
+      .spyOn(component.weatherService, 'getWeather')
+      .mockImplementation(() => weatherSubject);
 
     fixture.detectChanges();
-    const req = httpTesting.expectOne(
-      'assets/weather.json',
-      'Request to load the weather info'
-    );
-    req.error(new ProgressEvent('error'));
-    tick(1500);
+
+    expect(component.weatherResource.isLoading()).toBe(true);
+
+    weatherSubject.error(new Error(errorMessage));
+
+    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(
       fixture.nativeElement.querySelector('[data-testid="weatherError"]')
         .textContent
     ).toContain(`Error: ${errorMessage}`);
-  }));
+  });
 });

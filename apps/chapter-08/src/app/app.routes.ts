@@ -83,4 +83,15 @@ export const appRoutes: Route[] = [
       name: 'My input',
     },
   },
+  {
+    path: 'heavy-reports',
+    loadComponent: () => {
+      return import('./heavy-reports/heavy-reports.component').then(
+        (m) => m.HeavyReportsComponent
+      );
+    },
+    data: {
+      name: 'Heavy Reports (injectAsync)',
+    },
+  },
 ];

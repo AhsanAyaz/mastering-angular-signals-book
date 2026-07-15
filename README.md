@@ -1,6 +1,6 @@
 ![Modern Angular - Mastering Angular Signals](public/images/modern-angular-signals.jpg)
 
-Find the book at: [Amazon](https://www.amazon.com/dp/B0FF9LSHJN/)
+Get the book: **[Leanpub at the launch price](https://leanpub.com/mastering-angular-signals/c/V22LAUNCH?utm_source=github&utm_medium=readme&utm_campaign=v22-launch)** (DRM-free PDF + EPUB, the discount is applied automatically) - also in **[paperback on Amazon](https://www.amazon.com/dp/B0FF9LSHJN/)**.
 
 # Modern Angular - Mastering Angular Signals: Code Examples
 
